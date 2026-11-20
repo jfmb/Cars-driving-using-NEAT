@@ -114,3 +114,26 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ss]ceneDependencyCache*
 # Local AI runtime state
 .atl/
+Assets/Objects/Toon Series/Toon Racing/Scenes/Demo_Scene_1.unity
+Assets/Objects/Toon Series/Toon Racing/Scenes/Demo_Scene_1.unity.meta
+Assets/Objects/Toon Series/Toon Racing/Scenes/Demo_Scene_2.unity
+Assets/Objects/Toon Series/Toon Racing/Scenes/Demo_Scene_2.unity.meta
+Assets/Objects/Toon Series/Toon Racing/Scenes/Demo_Scene_2Settings.lighting
+Assets/Objects/Toon Series/Toon Racing/Scenes/Demo_Scene_2Settings.lighting.meta
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers.meta
+Assets/Objects/Toon Series/Toon Racing/Terrain/New Terrain.asset
+Assets/Objects/Toon Series/Toon Racing/Terrain/New Terrain.asset.meta
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Dirt_1A.terrainlayer
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Dirt_1A.terrainlayer.meta
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Dirt_1B.terrainlayer
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Dirt_1B.terrainlayer.meta
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Dirt_1C.terrainlayer
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Dirt_1C.terrainlayer.meta
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Dirt_1D.terrainlayer
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Dirt_1D.terrainlayer.meta
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Sand_1A.terrainlayer
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Sand_1A.terrainlayer.meta
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Stripes_1A.terrainlayer
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Stripes_1A.terrainlayer.meta
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Stripes_1B.terrainlayer
+Assets/Objects/Toon Series/Toon Racing/Terrain/Layers/Layer_Stripes_1B.terrainlayer.meta

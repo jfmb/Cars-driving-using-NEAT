@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: b3c1cecfe466787449344688f08d4c2b
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102727
+  packageName: Toon Racing
+  packageVersion: 1.4.1
+  assetPath: Assets/Toon Series/Shared/Shaders/CustomToonOutline.shader
+  uploadId: 960814
