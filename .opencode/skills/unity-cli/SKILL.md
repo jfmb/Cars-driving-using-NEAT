@@ -10,9 +10,16 @@ allowed-tools:
 **Always use the latest version of the Unity CLI unless you are told to use a
 specific version.** Newer releases regularly add commands and output fields
 these docs describe, so an outdated CLI fails in ways that read like the docs
-being wrong. Check with `unity self-update --check --format json`.
+being wrong. Check with `powershell.exe -NoProfile -Command "unity self-update --check --format json"`.
 
-**When you can run shell commands, use `unity command` and the rest of this CLI, not the Unity MCP server.** The CLI reaches more than the server's tools. MCP is for clients that have no shell.
+**WSL2 invocation rule:** never invoke the Linux `unity` binary directly. Run every Unity CLI command through `powershell.exe -NoProfile -Command "unity ..."`, which resolves the Windows `unity` executable. For any command targeting an Editor, pass `--project-path` with an absolute Windows path; convert the WSL path using `wslpath -w`. For example:
+
+```bash
+PROJECT_PATH="$(wslpath -w "$PWD")"
+powershell.exe -NoProfile -Command "unity status --project-path '$PROJECT_PATH'"
+```
+
+Apply this wrapper to all examples and workflows below. **When you can run shell commands, use `unity command` and the rest of this CLI, not the Unity MCP server.** The CLI reaches more than the server's tools. MCP is for clients that have no shell.
 
 Fetch a doc page directly (for example `WebFetch`) rather than searching (`WebSearch`). Replace `<VERSION>` first: the Unity version, eg `6000.3`, for docs.unity3d.com, or the package version, eg `1.2`, for a package page. These sites serve `.html` only, with no `.md` variant. Error codes, causes and fixes: [common-workflows.md](references/common-workflows.md#error-codes-cause-and-fix).
 
@@ -20,27 +27,27 @@ Fetch a doc page directly (for example `WebFetch`) rather than searching (`WebSe
 
 ## Workflow
 
-1. Check the CLI is installed and current ([Install the CLI](#install-the-cli-if-not-already-installed)).
+1. Check the Windows CLI is installed and current ([Install the CLI](#install-the-cli-if-not-already-installed)).
 2. Find the command ([search, don't grep help](#find-a-command-search-dont-grep-help)) and read its reference page.
-3. If you will drive an Editor, run `unity command console status` first and keep its cursor.
-4. Run the command, or drive the Editor with `unity command`.
-5. Check the project has zero console errors with `unity command console status`, and read any with `console get -- --since <saved cursor> --level error`. Stop there unless the user asked for proof or you suspect a specific fault. To chase a fault in a change to runtime behaviour, enter Play mode once and read state with `unity command script eval` instead of adding logging, and take no screenshots.
+3. If you will drive an Editor, run `powershell.exe -NoProfile -Command "unity command console status --project-path '<Windows project path>'"` first and keep its cursor.
+4. Run the command through PowerShell, or drive the Editor with `unity command`; Editor commands must include the correct Windows `--project-path`.
+5. Check the project has zero console errors with `unity command console status`, and read any with `console get -- --since <saved cursor> --level error`. Stop there unless the user asked for proof or you suspect a specific fault. To chase a fault in a change to runtime behaviour, enter Play mode once and read state with `unity command script eval` instead of adding logging, and take no screenshots. Run each CLI invocation through `powershell.exe -NoProfile -Command` and include the Windows `--project-path` for Editor commands.
 6. If the fix doesn't work, go back and reread the reference page for that command group before trying again.
 
 ## Find a command: search, don't grep help
 
-**Never filter `unity --help` or a group's help with `grep`.** Help is long, and a grep over it drops the match or the context around it. Use the CLI's own search:
+**Never filter `powershell.exe -NoProfile -Command "unity --help"` or a command group's help with `grep`.** Help is long, and a grep over it drops the match or the context around it. Use the CLI's own search:
 
 ```bash
-unity commands --grep license                 # built-in commands, plugins and the connected Editor's Pipeline commands
-unity command --query screenshot              # the same search
+powershell.exe -NoProfile -Command "unity commands --grep license"                 # built-in commands, plugins and the connected Editor's Pipeline commands
+powershell.exe -NoProfile -Command "unity command --query screenshot"              # the same search
 ```
 
-`unity commands --grep <pattern>` and `unity command --query <term>` are one search. It covers the CLI's built-in commands, the plugin catalog (installed or not) and the Pipeline commands of the live connected Editor, best match first. Plain words each match in any order; regex characters make it a regular expression (Rust `regex` syntax, case-insensitive; no lookaround or backreferences, which are refused with a usage error). Each row says how to run it (`invoke`): `unity projects link cloud`, `unity command create_gameobject`, `unity <id>` for an installed plugin, or `unity plugin install <id>` for one not yet installed. In `--format json` each row also carries `kind` (`command`, `plugin`, `pipeline`), `path`, `description` and `matchedOn` (`name`, `description` or `option`), so act on `invoke` rather than parsing the table.
+`unity commands --grep <pattern>` and `unity command --query <term>` are one search. It covers the CLI's built-in commands, the plugin catalog (installed or not) and the Pipeline commands of the live connected Editor, best match first. Plain words each match in any order; regex characters make it a regular expression (Rust `regex` syntax, case-insensitive; no lookaround or backreferences, which are refused with a usage error). Each row says how to run it (`invoke`), shown as Unity CLI syntax (for example, `unity projects link cloud`, `unity command create_gameobject`, `unity <id>` for an installed plugin, or `unity plugin install <id>` for one not yet installed). Run that syntax through `powershell.exe -NoProfile -Command`; add the Windows `--project-path` whenever the command targets a specific Editor. In `--format json` each row also carries `kind` (`command`, `plugin`, `pipeline`), `path`, `description` and `matchedOn` (`name`, `description` or `option`), so act on `invoke` rather than parsing the table.
 
-- **Search before you work around the CLI or tell the user it can't help.** A request that names a Unity service, store or product feature (finding Asset Store assets, generating a texture, a cloud build) may be served by a catalog plugin that isn't installed yet, and nothing else on the machine will say so. Search with the request's own words (`unity commands --grep "asset store"`). A row whose `invoke` is `unity plugin install <id>` is that plugin: tell the user, and ask before installing it ([Use a catalog plugin](references/common-workflows.md#use-a-catalog-plugin-for-a-task-the-built-in-commands-dont-cover)).
-- Use `unity command --query <term>` to search a specific Editor (`--project-path <project>`) or a Player (`--runtime <pattern>`, e.g. `unity command --query screenshot --runtime MyGame`).
-- `commands --grep` waits at most 3 seconds for the Editor; `command --query` waits for it. When the Editor was not searched, a last line says why (no Editor, no answer in time, several Editors) and what to run. Wait for the Editor first with `unity status --until-ready --project-path <project>`: before it connects, no Pipeline row is not proof nothing exists.
+- **Search before you work around the CLI or tell the user it can't help.** A request that names a Unity service, store or product feature (finding Asset Store assets, generating a texture, a cloud build) may be served by a catalog plugin that isn't installed yet, and nothing else on the machine will say so. Search with the request's own words (`powershell.exe -NoProfile -Command "unity commands --grep 'asset store'"`). A row whose `invoke` is `unity plugin install <id>` is that plugin: tell the user, and ask before installing it ([Use a catalog plugin](references/common-workflows.md#use-a-catalog-plugin-for-a-task-the-built-in-commands-dont-cover)).
+- Use `powershell.exe -NoProfile -Command "unity command --query <term> --project-path '<Windows project path>'"` to search a specific Editor, or `powershell.exe -NoProfile -Command "unity command --query screenshot --runtime MyGame"` to search a Player.
+- `commands --grep` waits at most 3 seconds for the Editor; `command --query` waits for it. When the Editor was not searched, a last line says why (no Editor, no answer in time, several Editors) and what to run. Wait for the Editor first with `powershell.exe -NoProfile -Command "unity status --until-ready --project-path '<Windows project path>'"`: before it connects, no Pipeline row is not proof nothing exists.
 
 Fields and flags: [integration-advanced.md](references/integration-advanced.md#querying-the-command-list).
 
@@ -49,12 +56,12 @@ Fields and flags: [integration-advanced.md](references/integration-advanced.md#q
 **If a Unity Editor is open on this machine, this CLI can control it live** — create and modify GameObjects, edit scenes and assets, inspect the hierarchy, and run arbitrary C# — through the project's **Pipeline** package (`com.unity.pipeline`). This runs entirely on your local machine, in your own user account, against your own open Editor: it is not remote access and grants no privilege you don't already have at your own terminal. When an Editor is available, drive it instead of hand-editing scene or asset files.
 
 ```bash
-unity status                    # confirm a connected Editor (look for state "ready")
-unity command                   # list the commands the Editor exposes
-unity command editor.playmode start   # run one — e.g. enter Play mode
-unity command editor.playmode start --help   # its parameters, read from the Editor
+powershell.exe -NoProfile -Command "unity status --project-path '<Windows project path>'"                    # confirm a connected Editor (look for state "ready")
+powershell.exe -NoProfile -Command "unity command --project-path '<Windows project path>'"                   # list the commands the Editor exposes
+powershell.exe -NoProfile -Command "unity command editor.playmode start --project-path '<Windows project path>'"   # run one — e.g. enter Play mode
+powershell.exe -NoProfile -Command "unity command editor.playmode start --help --project-path '<Windows project path>'"   # its parameters, read from the Editor
 # Run arbitrary C# — e.g. add a GameObject named "Joe" — when the Editor exposes script eval:
-unity command script eval 'new UnityEngine.GameObject("Joe");'
+powershell.exe -NoProfile -Command "unity command script eval 'new UnityEngine.GameObject(\"Joe\");' --project-path '<Windows project path>'"
 ```
 
 > **Verifying a running game, not just editing a scene?** Entering Play mode is setup, not proof:
@@ -69,52 +76,47 @@ unity command script eval 'new UnityEngine.GameObject("Joe");'
 Every Editor-driving command takes `--project-path <path>`. **Pass it whenever more than one Editor may be running** — without it the CLI targets the Editor whose project contains the current directory, so the target follows the shell's cwd:
 
 ```bash
-unity command editor.playmode start --project-path /path/to/MyProject
+powershell.exe -NoProfile -Command "unity command editor.playmode start --project-path 'D:\path\to\MyProject'"
 ```
 
 To pin one Editor when several share a project (worktrees, duplicate projects, Multiplayer Play Mode players), `unity command`, `list`, `job` and `mcp` also take `--port <number>`, `--pid <number>` or `--instance <name>` (the MPPM instance name or `vpId`); a pin that matches no running Editor exits 12 with `EDITOR_NOT_RUNNING`. A `unity status` instance's `project` field is what `--project-path` takes. For `unity command`/`list`/`job`/`mcp`, matching no running project fails with `AMBIGUOUS_EDITOR` and lists the candidates. [Details](references/integration-advanced.md#targeting-one-of-several-running-editors).
 
-**Several worktrees or agent sessions? One Editor per worktree.** Pin every Editor call to your own project with `--project-path <full path>` or `UNITY_PROJECT_PATH`, and never drive an Editor open on a sibling checkout, because it edits that checkout. Full recipe: [worktrees.md](references/worktrees.md).
+**Several worktrees or agent sessions? One Editor per worktree.** Pin every Editor call to your own project with `--project-path <absolute Windows path>`; if using `UNITY_PROJECT_PATH`, set it to that same Windows path. Never drive an Editor open on a sibling checkout, because it edits that checkout. Convert each WSL checkout path using `wslpath -w`. Full recipe: [worktrees.md](references/worktrees.md).
 
-Requires the project's `com.unity.pipeline` package (Unity 6.0+) — add it once with `unity pipeline install`. Full details — launching a batch-mode Editor to drive, `unity command` tool discovery, and authoring custom `[CliCommand]` tools — are in [integration-advanced.md](references/integration-advanced.md).
+Requires the project's `com.unity.pipeline` package (Unity 6.0+) — add it once with `powershell.exe -NoProfile -Command "unity pipeline install"`. Full details — launching a batch-mode Editor to drive, `unity command` tool discovery, and authoring custom `[CliCommand]` tools — are in [integration-advanced.md](references/integration-advanced.md).
 
-The package also ships a deeper `unity-pipeline` agent skill, invisible to clients inside `Library/PackageCache` — in a project with the package, run `unity skill install <client> --local` once to mirror it beside this skill.
+The package also ships a deeper `unity-pipeline` agent skill, invisible to clients inside `Library/PackageCache` — in a project with the package, run `powershell.exe -NoProfile -Command "unity skill install <client> --local"` once to mirror it beside this skill.
 
-> **Can't connect / commands time out? Check for Safe Mode first.** C# compile errors boot the Editor into **Safe Mode**, where the Pipeline package doesn't load, so `unity command` and `unity recompile` can't connect (`unity recompile` exits `12`). Run `unity status`: it reports Safe Mode and lists the compile errors (`safeMode.compileErrors` under `--format json`). Fix them and the Editor leaves Safe Mode. Full loop: [integration-advanced.md → Recovering from Safe Mode](references/integration-advanced.md#recovering-from-safe-mode-connection-fails-because-of-compile-errors).
+> **Can't connect / commands time out? Check for Safe Mode first.** C# compile errors boot the Editor into **Safe Mode**, where the Pipeline package doesn't load, so `unity command` and `unity recompile` can't connect (`unity recompile` exits `12`). Run `powershell.exe -NoProfile -Command "unity status --project-path '<Windows project path>'"`: it reports Safe Mode and lists the compile errors (`safeMode.compileErrors` under `--format json`). Fix them and the Editor leaves Safe Mode. Full loop: [integration-advanced.md → Recovering from Safe Mode](references/integration-advanced.md#recovering-from-safe-mode-connection-fails-because-of-compile-errors).
 
 > **Running as a sandboxed coding agent and `unity status` reports no instances?** A restrictive sandbox can hide an Editor that is genuinely running from this CLI's view of it — don't treat that alone as proof the Editor is down. Full detail in [integration-advanced.md → Sandboxed agent tooling can hide a running Editor](references/integration-advanced.md#sandboxed-agent-tooling-can-hide-a-running-editor).
 
 > **A call timed out, or the Editor's lifecycle failed? Tell the user, don't silently work around it.** First rule out [Safe Mode](references/integration-advanced.md#recovering-from-safe-mode-connection-fails-because-of-compile-errors), a sandbox, and an Editor that is still importing or loading. Read `errors[0].code` under `--format json`, and give a slow import a longer `--timeout`. If it is still one of these, report it:
 >
 > - a command that times out
-> - an Editor that never reaches `ready` under `unity status --until-ready` (exit 6)
+> - an Editor that never reaches `ready` under `powershell.exe -NoProfile -Command "unity status --until-ready --project-path '<Windows project path>'"` (exit 6)
 > - a connection that drops mid-command
 > - an Editor that quits or restarts under you
-> - a `unity open` that never produces an Editor
+> - a `powershell.exe -NoProfile -Command "unity open"` that never produces an Editor
 >
-> Don't quietly retry in a loop, switch to another Editor, or fall back to hand-editing scene and asset files. Say what you ran, what failed and what you already tried. Then offer to file it with `unity bug --area pipeline-package` (`--area editor` when the Editor itself quit or never started), and ask first: `unity bug` sends logs to Unity, so never run it on your own initiative.
+> Don't quietly retry in a loop, switch to another Editor, or fall back to hand-editing scene and asset files. Say what you ran, what failed and what you already tried. Then offer to file it with `powershell.exe -NoProfile -Command "unity bug --area pipeline-package"` (`--area editor` when the Editor itself quit or never started), and ask first: `unity bug` sends logs to Unity, so never run it on your own initiative.
 
 ## Install the CLI (if not already installed)
 
 First check if the CLI is available:
 
 ```bash
-which unity && unity --version
+powershell.exe -NoProfile -Command "(Get-Command unity -ErrorAction SilentlyContinue).Source"
+powershell.exe -NoProfile -Command "unity --version"
 ```
 
-If not found, install it:
+If the Windows executable is not found on PATH, install the native Windows CLI from WSL2 by running its Windows PowerShell installer:
 
-**macOS / Linux**
 ```bash
-curl -fsSL https://unity.com/install.sh | bash
+powershell.exe -NoProfile -Command "irm https://unity.com/install.ps1 | iex"
 ```
 
-**Windows (PowerShell)**
-```powershell
-irm https://unity.com/install.ps1 | iex
-```
-
-After installing, open a new shell so `unity` is on PATH, then verify with `unity --version`. If the install script fails or the binary is still not found, tell the user and stop; if the command itself fails with a permissions error or crash, the installation may be broken — suggest re-running the install script.
+After installing, open a new shell so the Windows `unity` executable is on PATH, then verify with `powershell.exe -NoProfile -Command "unity --version"`. If the install script fails or the binary is still not found, tell the user and stop; if the command itself fails with a permissions error or crash, the installation may be broken — suggest re-running the installer.
 
 ---
 
@@ -128,11 +130,11 @@ The CLI reads `UNITY_*` variables for credentials, proxies, paths and CI behavio
 
 ## Getting help
 
-Append `-h` or `--help` to any command or subcommand, at any level: `unity --help`, `unity projects create --help`.
+Append `-h` or `--help` to any command or subcommand, at any level, and invoke it through PowerShell: `powershell.exe -NoProfile -Command "unity --help"`, `powershell.exe -NoProfile -Command "unity projects create --help"`.
 
-`unity command <name> --help` asks the connected Editor for that command and prints its usage, description and parameters (name, type, required, default); a group name alone (`unity command editor.playmode --help`) lists the group's commands. The Editor gets at most 3 seconds. With no Editor, or no such command, the generic `unity command` help prints with one line saying why the parameters are missing and what to run. Help exits 0 either way and runs nothing.
+`powershell.exe -NoProfile -Command "unity command <name> --help --project-path '<Windows project path>'"` asks the connected Editor for that command and prints its usage, description and parameters (name, type, required, default); a group name alone (`powershell.exe -NoProfile -Command "unity command editor.playmode --help --project-path '<Windows project path>'"`) lists the group's commands. The Editor gets at most 3 seconds. With no Editor, or no such command, the generic `unity command` help prints with one line saying why the parameters are missing and what to run. Help exits 0 either way and runs nothing.
 
-Not sure which command? [Search, don't grep help](#find-a-command-search-dont-grep-help). `unity --help` and the unknown-command error end with that pointer too. Each search ends by naming the source it skipped and the command that searches it (`data.hint` in JSON): follow it before concluding nothing exists.
+Not sure which command? [Search, don't grep help](#find-a-command-search-dont-grep-help). `powershell.exe -NoProfile -Command "unity --help"` and the unknown-command error end with that pointer too. Each search ends by naming the source it skipped and the command that searches it (`data.hint` in JSON): follow it before concluding nothing exists.
 
 ## Exit codes
 
@@ -173,7 +175,7 @@ releases: [CHANGELOG.md](references/CHANGELOG.md).
 Step-by-step recipes live in [common-workflows.md](references/common-workflows.md). Read it before you attempt one of these:
 
 - inspect and run cloud builds and Pipeline Automation jobs
-- edit a scene, GameObject, or asset (`unity status` first)
+- edit a scene, GameObject, or asset (`powershell.exe -NoProfile -Command "unity status --project-path '<Windows project path>'"` first)
 - use a catalog plugin for a task the built-in commands don't cover
 - bootstrap a new project from scratch, and set up source control
 - find and install a missing Editor, open a project with the right Editor
