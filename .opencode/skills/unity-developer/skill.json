@@ -1,0 +1,27 @@
+{
+  "skillId": "unity-developer",
+  "name": "unity-developer",
+  "description": "Unity game development expert skill for Unity 6 LTS project support",
+  "version": "1.0.0",
+  "project": "AI-Prototype",
+  "baseDir": ".skills/unity-developer",
+  "capabilities": [
+    "Core Unity Mastery",
+    "Modern Rendering Pipelines",
+    "Performance Optimization Excellence",
+    "Advanced C# Game Programming",
+    "Game Architecture & Design Patterns",
+    "Asset Management & Optimization",
+    "UI/UX Implementation",
+    "Physics & Animation Systems",
+    "Networking & Multiplayer",
+    "Platform-Specific Development",
+    "Advanced Graphics & Shaders",
+    "Audio Implementation",
+    "Quality Assurance & Testing",
+    "DevOps & Deployment",
+    "Advanced Unity Systems"
+  ],
+  "baseDirectory": "/home/jfmb/.config/opencode/skills/unity-developer",
+  "relativePathsAreRelativeTo": ".skills/unity-developer"
+}

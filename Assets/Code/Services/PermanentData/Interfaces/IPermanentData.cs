@@ -1,0 +1,26 @@
+using System.Collections.Generic;
+
+public enum PermanentDataKeys
+{
+    LastSceneStarted,
+    MaskFound
+}
+
+public interface IPermanentData
+{
+    public void LoadSingleData(string key, out string data);
+    public void LoadSingleData(string key, out int data);
+    public void SaveSingleData(string key, string data);
+    public void SaveSingleData(string key, int data);
+
+    public void LoadGroupOfData(Dictionary<string, string> data);
+    public void LoadGroupOfData(Dictionary<string, int> data);
+
+    
+    public void SaveGroupOfData(Dictionary<string, string> data);
+    public void SaveGroupOfData(Dictionary<string, int> data);
+
+    public void DeleteSingleData(string key);
+    public void DeleteGroupOfData(List<string> keys);
+    public void DeleteAllData();
+}
