@@ -23,15 +23,16 @@ namespace NeatSimulation.Simulation
         [SerializeField] private Transform raceStartPoint;
         [SerializeField] private TrackProgressPath trackProgressPath = new TrackProgressPath();
         [SerializeField, Min(0.1f)] private float spawnSpacingMeters = 3.5f;
-        [SerializeField, Min(1)] private int populationSize = 4;
+        [SerializeField, Min(2)] private int populationSize = 4;
         [SerializeField, Min(1f)] private float evaluationTimeLimitSeconds = 60f;
 
-        // Optional MonoBehaviour implementing INeatSimulationAdapter; left empty while the NEAT Core is not integrated.
+        // Optional MonoBehaviour implementing INeatSimulationAdapter.
         [SerializeField] private MonoBehaviour neatSimulationAdapter;
 
         private readonly List<IndividualEvaluation> _individualEvaluations = new List<IndividualEvaluation>();
         private INeatSimulationAdapter _neatSimulationAdapter;
         private bool _simulationStarted;
+        private bool _stopRequested;
 
         private void Awake()
         {
@@ -59,7 +60,7 @@ namespace NeatSimulation.Simulation
 
         private void OnGameStarts()
         {
-            if (_simulationStarted)
+            if (_simulationStarted || _stopRequested)
             {
                 return;
             }
@@ -76,9 +77,15 @@ namespace NeatSimulation.Simulation
                 Debug.LogError(
                     $"[{nameof(NeatSimulationCoordinator)}] NEAT adapter returned an invalid population " +
                     $"(expected {populationSize} non-null controllers); simulation start aborted.");
+                _stopRequested = true;
                 return;
             }
 
+            SpawnPopulation(individualControllers);
+        }
+
+        private void SpawnPopulation(IReadOnlyList<INeatVehicleController> individualControllers)
+        {
             var startDistance = trackProgressPath.GetDistanceAlongPath(raceStartPoint.position);
             if (vehiclePrefab.scene.IsValid())
             {
@@ -162,22 +169,109 @@ namespace NeatSimulation.Simulation
             for (var i = 0; i < _individualEvaluations.Count; i++)
             {
                 var individualEvaluation = _individualEvaluations[i];
-                if (individualEvaluation.HasReportedFitness || !individualEvaluation.Evaluation.IsComplete)
+                if (individualEvaluation.HasReportedFitness)
                 {
                     continue;
                 }
 
-                individualEvaluation.HasReportedFitness = true;
-                if (_neatSimulationAdapter == null)
+                var evaluation = individualEvaluation.Evaluation;
+                if (evaluation == null)
+                {
+                    ReportFitness(individualEvaluation, 0f);
+                    continue;
+                }
+
+                if (!evaluation.IsComplete)
                 {
                     continue;
                 }
 
-                _neatSimulationAdapter.ReportFitness(individualEvaluation.IndividualId,
-                    individualEvaluation.Evaluation.Fitness);
+                ReportFitness(individualEvaluation, evaluation.Fitness);
+            }
+
+            if (_neatSimulationAdapter != null && _individualEvaluations.Count > 0 &&
+                AreAllFitnessResultsReported())
+            {
+                StartNextGeneration();
+            }
+        }
+
+        private void ReportFitness(IndividualEvaluation individualEvaluation, float fitness)
+        {
+            individualEvaluation.HasReportedFitness = true;
+            if (_neatSimulationAdapter == null)
+            {
+                return;
+            }
+
+            _neatSimulationAdapter.ReportFitness(individualEvaluation.IndividualId, fitness);
+            Debug.Log(
+                $"[{nameof(NeatSimulationCoordinator)}] Individual {individualEvaluation.IndividualId} " +
+                $"completed with fitness {fitness}.");
+        }
+
+        private bool AreAllFitnessResultsReported()
+        {
+            for (var i = 0; i < _individualEvaluations.Count; i++)
+            {
+                if (!_individualEvaluations[i].HasReportedFitness)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void StartNextGeneration()
+        {
+            DestroyCurrentVehicles();
+            _individualEvaluations.Clear();
+
+            var individualControllers = _neatSimulationAdapter.CreatePopulation(populationSize);
+            if (individualControllers == null || individualControllers.Count == 0)
+            {
                 Debug.Log(
-                    $"[{nameof(NeatSimulationCoordinator)}] Individual {individualEvaluation.IndividualId} " +
-                    $"completed with fitness {individualEvaluation.Evaluation.Fitness}.");
+                    $"[{nameof(NeatSimulationCoordinator)}] NEAT generation limit reached; simulation stopped.");
+                StopSimulation();
+                return;
+            }
+
+            if (!IsValidPopulation(individualControllers, populationSize))
+            {
+                Debug.LogError(
+                    $"[{nameof(NeatSimulationCoordinator)}] NEAT adapter returned an invalid population " +
+                    $"(expected {populationSize} non-null controllers); simulation stopped.");
+                StopSimulation();
+                return;
+            }
+
+            SpawnPopulation(individualControllers);
+        }
+
+        /// <summary>
+        /// Stops the simulation and discards the current vehicle evaluations.
+        /// </summary>
+        public void StopSimulation()
+        {
+            _stopRequested = true;
+            _simulationStarted = false;
+            DestroyCurrentVehicles();
+            _individualEvaluations.Clear();
+        }
+
+        private void DestroyCurrentVehicles()
+        {
+            for (var i = 0; i < _individualEvaluations.Count; i++)
+            {
+                var vehicleInstance = _individualEvaluations[i].VehicleInstance;
+                if (vehicleInstance == null)
+                {
+                    continue;
+                }
+
+                vehicleInstance.SetActive(false);
+                Destroy(vehicleInstance);
             }
         }
 

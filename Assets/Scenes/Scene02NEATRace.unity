@@ -3780,6 +3780,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1365bb3e2ea367545841cd93130e3b14, type: 3}
   m_PrefabInstance: {fileID: 307107729}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &309350665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 309350667}
+  - component: {fileID: 309350666}
+  m_Layer: 0
+  m_Name: NetSimulatorAdapter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &309350666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309350665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e2c1c1f986c4b8ca3d01f37a6b4e59d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Integration.NeatSimulationAdapter
+  maximumGenerations: 100
+  numInputs: 5
+  numOutputs: 1
+  useRandomSeed: 1
+  randomSeed: 0
+  mutationProbability: 0.8
+  crossoverProbability: 0.75
+  addConnectionProbability: 0.03
+  addNodeProbability: 0.03
+  enableDisableConnectionProbability: 0.01
+  weightMutationRate: 0.5
+  weightMutationAmount: 0.5
+  weightReplacementProbability: 0.03
+  maxWeight: 6
+  elitismCount: 1
+  compatibilityThreshold: 3
+  excessCoefficient: 1
+  disjointCoefficient: 1
+  weightCoefficient: 0.2
+  speciesAgeLimit: 15
+  speciesDecay: 0.02
+  activationFunction: 0
+--- !u!4 &309350667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309350665}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -27.35051, y: 0, z: 3.08502}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &313844068
 GameObject:
   m_ObjectHideFlags: 0
@@ -13600,7 +13666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea45b619db732fe4398497d20e06fcd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Vehicles.VehicleController
-  speed: 5
+  speed: 20
   steeringDegreesPerSecond: 180
 --- !u!114 &1178104366
 MonoBehaviour:
@@ -19849,9 +19915,9 @@ MonoBehaviour:
     - {x: -44.25, y: 0.15, z: -10}
     - {x: -44.25, y: 0.15, z: 0}
   spawnSpacingMeters: 3.5
-  populationSize: 4
+  populationSize: 20
   evaluationTimeLimitSeconds: 60
-  neatSimulationAdapter: {fileID: 0}
+  neatSimulationAdapter: {fileID: 309350666}
 --- !u!4 &1703867202
 Transform:
   m_ObjectHideFlags: 0
@@ -23801,3 +23867,4 @@ SceneRoots:
   - {fileID: 876297196}
   - {fileID: 898297980}
   - {fileID: 1703867202}
+  - {fileID: 309350667}
