@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07011dfe983618041bd08d361c7c13ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Services.ServicesInstaller
-  nextScene: 2
+  nextScene: 3
   languagesInstaller: {fileID: 673903388}
   permanentDataFileName: gameInfo.txt
   otherGameServicesToInstall:

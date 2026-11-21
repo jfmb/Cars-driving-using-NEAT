@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Scene01MainMenu.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/Scene02.unity
-    guid: a3ef7c8e0c8a7f24d944be7c2517eb37
+    path: Assets/Scenes/Scene02NEATRace.unity
+    guid: bd2bba7484c8fe143a19748843e18f5e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
