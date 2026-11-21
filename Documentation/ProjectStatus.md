@@ -1,11 +1,11 @@
 # Project Status
 
-Snapshot updated on 2026-10-20. This is a status summary, not a replacement for the architecture documentation or the Unity Inspector.
+Snapshot updated on 2026-11-21. This is a status summary, not a replacement for the architecture documentation or the Unity Inspector.
 
 ## Project configuration
 
 - Unity Editor: `6000.6.0f1`.
-- Build scene order: `Scene00` (0) → `Scene01.1` (1) → `Scene01` (2) → `Scene02` (3).
+- Build Settings order is `Scene00` (0) → `Scene01.1` (1) → `Scene01MainMenu` (2) → legacy `Scene02.unity` (3). `Scene02NEATRace.unity` is not in Build Settings, and the current main-menu route still references the legacy path; this task leaves navigation/build settings unchanged.
 - The project uses its Service Locator and ScriptableObject-backed `EventQueue`; see `Architecture/ServiceLocator.md` and `Architecture/EventSystem.md` for authoritative API and lifecycle details.
 - `ServiceLocator` clears its static registrations at `RuntimeInitializeLoadType.SubsystemRegistration`, supporting the enabled Enter Play Mode Options configuration that skips domain reload.
 
@@ -50,6 +50,14 @@ Snapshot updated on 2026-10-20. This is a status summary, not a replacement for 
 - Scene02's `SceneStarter` begins `SceneSaver` in `Awake` and waits for the installed `DataLoaderCompleted` simple event before running `startersAtAwake`; the event is published after all configured save loaders finish restoring. `startersAtStart` remains on the normal `Start` path.
 - The main-menu Continue button is hidden when no compatible save is available and uses the existing scene-load event to continue.
 
+### NEAT vehicle simulation
+
+- `Assets/Scenes/Scene02NEATRace.unity` now has an overlay Canvas with a Start Simulation button. The button publishes the existing `GameStartsEvent` via `StartSimulationButtonPublisher`; Scene00's `EventsInstaller` registers the existing `GameStartsSimpleEventSO`.
+- `NeatSimulationCoordinator` subscribes through `ServiceLocator`/`EventQueue`, guards repeated starts, creates the configured population beneath `Scenario/Cars`, and starts one path-based evaluation per vehicle. The scene uses the existing `raceCarRed` instance as its runtime prototype and serializes 39 ordered centerline points; no road or boundary transforms were changed.
+- Vehicle components are `VehicleSensors`, `VehicleController`, and `VehicleEvaluation`. Sensors raycast the configured TrackBoundary layer; steering is clamped to `[-1,1]`; constant positive speed and steering are applied only when a Core policy is present. Fitness is measured independently from cumulative track-path progress, with lap count, collision and time-limit outcomes.
+- `Documentation/NEAT/SimulationIntegration.md` defines the minimal `INeatSimulationAdapter` / `INeatVehicleController` contract. The adapter is intentionally unassigned until Junie's NEAT Core is available; no autonomous driving or NEAT training is claimed.
+- The simulation scene remains absent from Build Settings and is not reachable through the current main-menu path; player navigation/build settings remain a separate task.
+
 ## Verification status
 
 - Unity batchmode compilation and Editor wiring checks were run for the recent workday implementation; the final wiring report passed, including event asset references and registration.
@@ -66,6 +74,7 @@ Snapshot updated on 2026-10-20. This is a status summary, not a replacement for 
 - Player state-machine Play Mode checks passed for New Game initialization, chair sit/stand transitions, saved-state serialization, and restoring a seated Continue save with its stand-up instruction.
 - Player state-machine Play Mode checks passed for New Game initialization, standing-to-seated-to-standing transitions, sitting on two distinct chairs, saving/resolving each seated ID, and continuing while seated on the second chair.
 - The typed save/load Play Mode check passed for player, person-data and interactable records, restoration, and clearing save data for New Game.
+- NEAT infrastructure verification: live Editor `unity recompile` passed with zero errors/warnings after the runtime fixes. Play Mode booted from Scene00, confirmed the EventQueue and `GameStartsEvent` sender, then loaded `Scene02NEATRace`; a simulated pointer-click through the Button's `ExecuteEvents` handler spawned four active evaluation vehicles. A duplicate click did not instantiate another population. All four remained collision-free and incomplete during the check, with no Core adapter assigned; no autonomous driving or NEAT training was tested. This used an Editor pointer-event simulation, not a physical mouse click or player build.
 - No player build or visual review in an interactive Editor session is recorded here. There is no project CI/build pipeline or automated test assembly; batchmode checks were temporary validation workflows.
 
 ## Remaining setup
