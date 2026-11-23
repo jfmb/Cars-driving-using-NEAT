@@ -67,24 +67,24 @@ namespace NeatSimulation.Vehicles
                 return;
             }
 
-            RegisterCollision();
+            RegisterCollision(other.collider);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            // Debug.LogWarning(
-            //     $"[{name}] Trigger entered: {other.name}, " +
-            //     $"Layer: {LayerMask.LayerToName(other.gameObject.layer)}",
-            //     other);
-            RegisterCollision();
+            if (other.GetComponent<VehicleCheckpoint>() != null)
+            {
+                return;
+            }
+
+            RegisterCollision(other);
         }
 
-        private void RegisterCollision()
+        private void RegisterCollision(Collider other)
         {
-            // Debug.LogWarning(
-            //     $"[{name}] Collision detected. HasCollided={HasCollided}",
-            //     this);
-            //
+            Debug.LogWarning(
+                $"[{name}] Collision with {other.name}, " +
+                $"Layer: {LayerMask.LayerToName(other.gameObject.layer)}");
             HasCollided = true;
             StopDriving();
         }

@@ -1,21 +1,22 @@
 using System;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace NeatSimulation.Vehicles
 {
     /// <summary>
-    /// Plain C# state of one evaluation run: cumulative progress along the track route, completed
-    /// laps and the collision or time-limit outcome. Fitness is Unity-computed route distance and
-    /// never consults NEAT internals; crossing the start line forward is detected by the wrap of
-    /// the projected route distance, not by Euclidean displacement.
+    /// Plain C# state of one evaluation run: ordered checkpoint progress, survival time and the
+    /// collision or time-limit outcome. Fitness is Unity-computed and never consults NEAT internals.
     /// </summary>
     public class VehicleEvaluationRun
     {
-        private readonly TrackProgressPath _trackProgressPath;
+        private const float CheckpointReward = 100f;
+
+        private readonly IReadOnlyList<VehicleCheckpoint> _checkpoints;
+        private readonly HashSet<VehicleCheckpoint> _reachedCheckpoints = new HashSet<VehicleCheckpoint>();
         private readonly float _timeLimitSeconds;
         private float _elapsed;
-        private float _lastDistance;
-        private float _cumulativeDistance;
+        private int _nextCheckpointIndex;
+        private int _checkpointsReached;
         private bool _isComplete;
 
         /// <summary>
@@ -24,62 +25,62 @@ namespace NeatSimulation.Vehicles
         public bool IsComplete => _isComplete;
 
         /// <summary>
-        /// Full route laps completed so far; never negative.
+        /// Number of checkpoints reached in the configured order.
         /// </summary>
-        public int LapCount => Mathf.Max(0, Mathf.FloorToInt(_cumulativeDistance / _trackProgressPath.TotalLength));
+        public int CheckpointsReached => _checkpointsReached;
 
         /// <summary>
-        /// Cumulative distance progressed along the route; frozen when the run completes.
+        /// Checkpoint reward plus survival time; frozen when the run completes.
         /// </summary>
-        public float Fitness => _cumulativeDistance;
+        public float Fitness => _checkpointsReached * CheckpointReward + _elapsed;
 
-        public VehicleEvaluationRun(TrackProgressPath trackProgressPath, float timeLimitSeconds, Vector3 startVehiclePosition)
+        public VehicleEvaluationRun(IReadOnlyList<VehicleCheckpoint> checkpoints, float timeLimitSeconds)
         {
-            _trackProgressPath = trackProgressPath ?? throw new ArgumentNullException(nameof(trackProgressPath));
+            _checkpoints = checkpoints ?? throw new ArgumentNullException(nameof(checkpoints));
             if (timeLimitSeconds <= 0f)
             {
                 throw new ArgumentException("The evaluation time limit must be > 0.", nameof(timeLimitSeconds));
             }
 
             _timeLimitSeconds = timeLimitSeconds;
-            _lastDistance = _trackProgressPath.GetDistanceAlongPath(startVehiclePosition);
         }
 
         /// <summary>
         /// Advances the run by one physics step. The collision flag comes from the vehicle
         /// controller; the run completes on the first collision or when the time limit is reached.
         /// </summary>
-        public void Tick(float deltaTime, Vector3 vehiclePosition, bool vehicleCollided)
+        public void Tick(float deltaTime, bool vehicleCollided)
         {
             if (_isComplete)
             {
                 return;
             }
 
-            _elapsed += deltaTime;
-            AccumulateProgress(vehiclePosition);
-            if (vehicleCollided || _elapsed >= _timeLimitSeconds)
+            if (vehicleCollided)
+            {
+                _isComplete = true;
+                return;
+            }
+
+            _elapsed = Math.Min(_elapsed + deltaTime, _timeLimitSeconds);
+            if (_elapsed >= _timeLimitSeconds)
             {
                 _isComplete = true;
             }
         }
 
-        private void AccumulateProgress(Vector3 vehiclePosition)
+        public bool TryReachCheckpoint(VehicleCheckpoint checkpoint)
         {
-            var distance = _trackProgressPath.GetDistanceAlongPath(vehiclePosition);
-            var delta = distance - _lastDistance;
-            var halfLength = _trackProgressPath.TotalLength * 0.5f;
-            if (delta < -halfLength)
+            if (_isComplete || checkpoint == null || _reachedCheckpoints.Contains(checkpoint) ||
+                _nextCheckpointIndex >= _checkpoints.Count || checkpoint != _checkpoints[_nextCheckpointIndex])
             {
-                delta += _trackProgressPath.TotalLength;
-            }
-            else if (delta > halfLength)
-            {
-                delta -= _trackProgressPath.TotalLength;
+                return false;
             }
 
-            _cumulativeDistance += delta;
-            _lastDistance = distance;
+            _reachedCheckpoints.Add(checkpoint);
+            _nextCheckpointIndex++;
+            _checkpointsReached++;
+            return true;
         }
     }
 }

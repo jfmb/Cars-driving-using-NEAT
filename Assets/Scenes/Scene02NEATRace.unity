@@ -694,59 +694,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1365bb3e2ea367545841cd93130e3b14, type: 3}
   m_PrefabInstance: {fileID: 48267702}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &49383748
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 49383749}
-  - component: {fileID: 49383750}
-  m_Layer: 7
-  m_Name: Top_2_Side_B
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &49383749
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49383748}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.74999976, y: 0.75, z: 39.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 493150622}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &49383750
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49383748}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.8, y: 1.5, z: 20.4}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &51507213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,59 +1000,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5ea5861bb60c5ec4cb1f4efc0e23d8ed, type: 3}
   m_PrefabInstance: {fileID: 64266716}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &73067307
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 73067308}
-  - component: {fileID: 73067309}
-  m_Layer: 7
-  m_Name: Top_2_Side_A
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &73067308
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73067307}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.75000024, y: 0.75, z: 30.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 493150622}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &73067309
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73067307}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.8, y: 1.5, z: 20.4}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &73439733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4069,7 +3963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e2c1c1f986c4b8ca3d01f37a6b4e59d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Integration.NeatSimulationAdapter
-  maximumGenerations: 200
+  maximumGenerations: 400
   numInputs: 5
   numOutputs: 1
   useRandomSeed: 0
@@ -5958,7 +5852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &493150622
 Transform:
   m_ObjectHideFlags: 0
@@ -5974,10 +5868,6 @@ Transform:
   m_Children:
   - {fileID: 332521739}
   - {fileID: 1808945747}
-  - {fileID: 73067308}
-  - {fileID: 49383749}
-  - {fileID: 2064678248}
-  - {fileID: 2115124909}
   - {fileID: 928395119}
   - {fileID: 1451619235}
   - {fileID: 1339640787}
@@ -9463,6 +9353,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5ea5861bb60c5ec4cb1f4efc0e23d8ed, type: 3}
   m_PrefabInstance: {fileID: 795865745}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &801167811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 801167812}
+  - component: {fileID: 801167814}
+  - component: {fileID: 801167813}
+  m_Layer: 0
+  m_Name: Checkpooint04
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &801167812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801167811}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.6986088, z: -0, w: 0.7155039}
+  m_LocalPosition: {x: 103.6, y: -0.000000048428774, z: 27.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641938150}
+  m_LocalEulerAnglesHint: {x: 0, y: -88.631, z: 0}
+--- !u!114 &801167813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801167811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fe53deba16feb4197538cb79848753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Vehicles.VehicleCheckpoint
+--- !u!65 &801167814
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801167811}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3.1781425, z: 11.568871}
+  m_Center: {x: 0, y: 1.0890713, z: -5.2844353}
 --- !u!1001 &809703578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10020,6 +9976,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1365bb3e2ea367545841cd93130e3b14, type: 3}
   m_PrefabInstance: {fileID: 834701691}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &846484944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 846484945}
+  - component: {fileID: 846484947}
+  - component: {fileID: 846484946}
+  m_Layer: 0
+  m_Name: Checkpooint03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &846484945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846484944}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.8162486, z: -0, w: 0.57770085}
+  m_LocalPosition: {x: 76.3, y: -0.000000048428774, z: 70.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641938150}
+  m_LocalEulerAnglesHint: {x: 0, y: -109.422, z: 0}
+--- !u!114 &846484946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846484944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fe53deba16feb4197538cb79848753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Vehicles.VehicleCheckpoint
+--- !u!65 &846484947
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846484944}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3.1781425, z: 11.568871}
+  m_Center: {x: 0, y: 1.0890713, z: -5.2844353}
 --- !u!1 &848794548
 GameObject:
   m_ObjectHideFlags: 0
@@ -11214,7 +11236,7 @@ Transform:
   m_GameObject: {fileID: 928395118}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  m_LocalPosition: {x: 41.25, y: 0.75, z: 10}
+  m_LocalPosition: {x: 58.1, y: 0.75, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11634,6 +11656,72 @@ Transform:
   - {fileID: 417429611}
   m_Father: {fileID: 1920317387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &981919606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 981919607}
+  - component: {fileID: 981919609}
+  - component: {fileID: 981919608}
+  m_Layer: 0
+  m_Name: Checkpooint05
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &981919607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981919606}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.039722465, z: -0, w: 0.9992108}
+  m_LocalPosition: {x: 80.2, y: -0.000000048428774, z: -0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641938150}
+  m_LocalEulerAnglesHint: {x: 0, y: -4.553, z: 0}
+--- !u!114 &981919608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981919606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fe53deba16feb4197538cb79848753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Vehicles.VehicleCheckpoint
+--- !u!65 &981919609
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981919606}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3.1781425, z: 11.568871}
+  m_Center: {x: 0, y: 1.0890713, z: -5.2844353}
 --- !u!1 &982711328
 GameObject:
   m_ObjectHideFlags: 0
@@ -13095,6 +13183,72 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8.36, y: 0.2, z: 6.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1122760779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1122760780}
+  - component: {fileID: 1122760782}
+  - component: {fileID: 1122760781}
+  m_Layer: 0
+  m_Name: Checkpooint07
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1122760780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122760779}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.70908433, z: -0, w: 0.7051237}
+  m_LocalPosition: {x: -23.7, y: -0.000000048428774, z: -9.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641938150}
+  m_LocalEulerAnglesHint: {x: 0, y: 90.321, z: 0}
+--- !u!114 &1122760781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122760779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fe53deba16feb4197538cb79848753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Vehicles.VehicleCheckpoint
+--- !u!65 &1122760782
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122760779}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3.1781425, z: 11.568871}
+  m_Center: {x: 0, y: 1.0890713, z: -5.2844353}
 --- !u!1001 &1124004726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13862,13 +14016,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1174179423}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -44.25, y: 0.15, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 580594438}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &1174917624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13931,6 +14085,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4493add91bca0b445ae6bdf89ead0975, type: 3}
   m_PrefabInstance: {fileID: 1174917624}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1176804907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1176804908}
+  - component: {fileID: 1176804910}
+  - component: {fileID: 1176804909}
+  m_Layer: 0
+  m_Name: Checkpooint00
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1176804908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176804907}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 37.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641938150}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1176804909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176804907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fe53deba16feb4197538cb79848753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Vehicles.VehicleCheckpoint
+--- !u!65 &1176804910
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176804907}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3.1781425, z: 11.568871}
+  m_Center: {x: 0, y: 1.0890713, z: -5.2844353}
 --- !u!1001 &1178104359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17561,7 +17781,7 @@ Transform:
   m_GameObject: {fileID: 1451619234}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  m_LocalPosition: {x: 50.25, y: 0.75, z: 10}
+  m_LocalPosition: {x: 67.1, y: 0.75, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19862,6 +20082,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1365bb3e2ea367545841cd93130e3b14, type: 3}
   m_PrefabInstance: {fileID: 1610935513}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1622953836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1622953837}
+  - component: {fileID: 1622953839}
+  - component: {fileID: 1622953838}
+  m_Layer: 0
+  m_Name: Checkpooint01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1622953837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622953836}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.6349438, z: -0, w: 0.77255833}
+  m_LocalPosition: {x: 15.01, y: -0.000000048428774, z: 48.79}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641938150}
+  m_LocalEulerAnglesHint: {x: 0, y: -78.832, z: 0}
+--- !u!114 &1622953838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622953836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fe53deba16feb4197538cb79848753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Vehicles.VehicleCheckpoint
+--- !u!65 &1622953839
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622953836}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3.1781425, z: 11.568871}
+  m_Center: {x: 0, y: 1.0890713, z: -5.2844353}
 --- !u!1001 &1633374520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19977,6 +20263,46 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8, y: 1.5, z: 4.4968967}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1641938149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1641938150}
+  m_Layer: 0
+  m_Name: CheckPoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1641938150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641938149}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.71399, y: 0.05, z: 2.53253}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1176804908}
+  - {fileID: 1622953837}
+  - {fileID: 1659165379}
+  - {fileID: 1837938941}
+  - {fileID: 846484945}
+  - {fileID: 801167812}
+  - {fileID: 981919607}
+  - {fileID: 1791405119}
+  - {fileID: 1122760780}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1643664743
 GameObject:
   m_ObjectHideFlags: 0
@@ -20313,6 +20639,72 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8.36, y: 0.2, z: 6.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1659165378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1659165379}
+  - component: {fileID: 1659165381}
+  - component: {fileID: 1659165380}
+  m_Layer: 0
+  m_Name: Checkpooint01 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1659165379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659165378}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.02559549, z: -0, w: 0.9996724}
+  m_LocalPosition: {x: 37.1, y: -0.000000048428774, z: 68.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641938150}
+  m_LocalEulerAnglesHint: {x: 0, y: -2.933, z: 0}
+--- !u!114 &1659165380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659165378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fe53deba16feb4197538cb79848753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Vehicles.VehicleCheckpoint
+--- !u!65 &1659165381
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659165378}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3.1781425, z: 11.568871}
+  m_Center: {x: 0, y: 1.0890713, z: -5.2844353}
 --- !u!1001 &1663884006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20514,49 +20906,18 @@ MonoBehaviour:
   carsContainer: {fileID: 1912278734}
   vehiclePrefab: {fileID: 1178104361}
   raceStartPoint: {fileID: 1174179424}
-  trackProgressPath:
-    centerlinePoints:
-    - {x: -44.25, y: 0.15, z: 5}
-    - {x: -44.25, y: 0.15, z: 20}
-    - {x: -39.9, y: 0.15, z: 30.6}
-    - {x: -29.3, y: 0.15, z: 35}
-    - {x: -19.3, y: 0.15, z: 35}
-    - {x: -9.3, y: 0.15, z: 35}
-    - {x: 1.1, y: 0.15, z: 39.4}
-    - {x: 5.4, y: 0.15, z: 50}
-    - {x: 9.9, y: 0.15, z: 60.6}
-    - {x: 17.6, y: 0.15, z: 64.7}
-    - {x: 31.1, y: 0.15, z: 69.5}
-    - {x: 35.4, y: 0.15, z: 80}
-    - {x: 39.8, y: 0.15, z: 90.6}
-    - {x: 47.5, y: 0.15, z: 94.7}
-    - {x: 53.5, y: 0.15, z: 94.5}
-    - {x: 61.2, y: 0.15, z: 90.4}
-    - {x: 65.3, y: 0.15, z: 82.7}
-    - {x: 69.9, y: 0.15, z: 69.4}
-    - {x: 81.7, y: 0.15, z: 65}
-    - {x: 91.2, y: 0.15, z: 60.5}
-    - {x: 95.6, y: 0.15, z: 50}
-    - {x: 95.6, y: 0.15, z: 30}
-    - {x: 95.6, y: 0.15, z: 10}
-    - {x: 91.2, y: 0.15, z: -0.6}
-    - {x: 80.7, y: 0.15, z: -5}
-    - {x: 70.7, y: 0.15, z: -5}
-    - {x: 60.7, y: 0.15, z: -5}
-    - {x: 50.2, y: 0.15, z: -9.4}
-    - {x: 45.8, y: 0.15, z: -21}
-    - {x: 41.4, y: 0.15, z: -30.6}
-    - {x: 30.8, y: 0.15, z: -35}
-    - {x: 10.8, y: 0.15, z: -35}
-    - {x: -9.3, y: 0.15, z: -35}
-    - {x: -19.3, y: 0.15, z: -35}
-    - {x: -29.3, y: 0.15, z: -35}
-    - {x: -39.9, y: 0.15, z: -30.6}
-    - {x: -44.25, y: 0.15, z: -20}
-    - {x: -44.25, y: 0.15, z: -10}
-    - {x: -44.25, y: 0.15, z: 0}
+  checkpoints:
+  - {fileID: 1176804909}
+  - {fileID: 1622953838}
+  - {fileID: 1837938942}
+  - {fileID: 846484946}
+  - {fileID: 801167813}
+  - {fileID: 981919608}
+  - {fileID: 1791405120}
+  - {fileID: 1122760781}
+  - {fileID: 1659165380}
   spawnSpacingMeters: 0.1
-  populationSize: 20
+  populationSize: 50
   evaluationTimeLimitSeconds: 60
   neatSimulationAdapter: {fileID: 309350666}
 --- !u!4 &1703867202
@@ -21060,6 +21421,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_ActionId: 3c7022bf-7922-4f7c-a998-c437916075ad
+--- !u!1 &1791405118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1791405119}
+  - component: {fileID: 1791405121}
+  - component: {fileID: 1791405120}
+  m_Layer: 0
+  m_Name: Checkpooint06
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1791405119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791405118}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.017105587, z: -0, w: 0.99985373}
+  m_LocalPosition: {x: 15.838731, y: -0.000000048428774, z: -31.586414}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641938150}
+  m_LocalEulerAnglesHint: {x: 0, y: -1.96, z: 0}
+--- !u!114 &1791405120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791405118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fe53deba16feb4197538cb79848753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Vehicles.VehicleCheckpoint
+--- !u!65 &1791405121
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791405118}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3.1781425, z: 11.568871}
+  m_Center: {x: 0, y: 1.0890713, z: -5.2844353}
 --- !u!1001 &1793338639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21741,6 +22168,72 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8, y: 1.5, z: 20.4}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1837938940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1837938941}
+  - component: {fileID: 1837938943}
+  - component: {fileID: 1837938942}
+  m_Layer: 0
+  m_Name: Checkpooint02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1837938941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837938940}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.6349438, z: -0, w: 0.77255833}
+  m_LocalPosition: {x: 48.6, y: -0.000000048428774, z: 86.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641938150}
+  m_LocalEulerAnglesHint: {x: 0, y: -78.832, z: 0}
+--- !u!114 &1837938942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837938940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fe53deba16feb4197538cb79848753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Vehicles.VehicleCheckpoint
+--- !u!65 &1837938943
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837938940}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3.1781425, z: 11.568871}
+  m_Center: {x: 0, y: 1.0890713, z: -5.2844353}
 --- !u!1001 &1838006936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23817,59 +24310,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8, y: 1.5, z: 4.4968967}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &2064678247
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2064678248}
-  - component: {fileID: 2064678249}
-  m_Layer: 7
-  m_Name: Top_3_Side_A
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2064678248
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2064678247}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 20.75, y: 0.75, z: 30.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 493150622}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2064678249
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2064678247}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.8, y: 1.5, z: 20.4}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2066202791
 GameObject:
   m_ObjectHideFlags: 0
@@ -24239,59 +24679,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8.36, y: 0.2, z: 20.05}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &2115124908
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2115124909}
-  - component: {fileID: 2115124910}
-  m_Layer: 7
-  m_Name: Top_3_Side_B
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2115124909
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115124908}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 20.75, y: 0.75, z: 39.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 493150622}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2115124910
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115124908}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.8, y: 1.5, z: 20.4}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2115392136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24648,3 +25035,4 @@ SceneRoots:
   - {fileID: 898297980}
   - {fileID: 1703867202}
   - {fileID: 309350667}
+  - {fileID: 1641938150}
