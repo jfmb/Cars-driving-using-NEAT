@@ -72,11 +72,19 @@ namespace NeatSimulation.Vehicles
 
         private void OnTriggerEnter(Collider other)
         {
+            // Debug.LogWarning(
+            //     $"[{name}] Trigger entered: {other.name}, " +
+            //     $"Layer: {LayerMask.LayerToName(other.gameObject.layer)}",
+            //     other);
             RegisterCollision();
         }
 
         private void RegisterCollision()
         {
+            // Debug.LogWarning(
+            //     $"[{name}] Collision detected. HasCollided={HasCollided}",
+            //     this);
+            //
             HasCollided = true;
             StopDriving();
         }

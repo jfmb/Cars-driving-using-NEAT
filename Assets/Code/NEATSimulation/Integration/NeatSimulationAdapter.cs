@@ -146,6 +146,7 @@ namespace NeatSimulation.Integration
             }
 
             _algorithm.NextGeneration();
+            Debug.Log("Generation number " + _algorithm.CurrentGeneration);
         }
 
         private NeatConfig CreateConfig(int populationSize)

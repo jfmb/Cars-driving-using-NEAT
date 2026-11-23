@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using NeatSimulation.Integration;
 using NeatSimulation.Vehicles;
 using Services.EventQueue;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using NeatCore.Configuration;
 using NeatCore.Crossover;
@@ -55,7 +56,7 @@ namespace NeatCore.Evolution
         /// Current species list.
         /// </summary>
         public List<Species> Species => _speciationManager.Species;
-
+        
         public NeatAlgorithm(NeatConfig config)
             : this(config, config.RandomSeed.HasValue
                 ? new Random(config.RandomSeed.Value.ToIntSeed())
@@ -157,12 +158,23 @@ namespace NeatCore.Evolution
                     {
                         // Crossover
                         var parent1 = _selector.SelectParent(species);
-                        Genome parent2;
-                        do
-                        {
-                            parent2 = _selector.SelectParent(species);
-                        } while (parent2.Id == parent1.Id && species.Members.Count > 1);
+                        // Genome parent2;
+                        // do
+                        // {
+                        //     parent2 = _selector.SelectParent(species);
+                        // } while (parent2.Id == parent1.Id && species.Members.Count > 1);
+                        //
+                        // var parent2Candidates = species.Members
+                        //     .Where(member => member.Id != parent1.Id)
+                        //     .ToList();
+                        
+                        var parent2Candidates = species.Members
+                            .Where(member => !ReferenceEquals(member, parent1))
+                            .ToList();
 
+                        var parent2 = parent2Candidates[
+                            _random.Next(parent2Candidates.Count)];
+                        
                         var (child1, _) = _crossover.Crossover(parent1, parent2);
                         child = child1;
                     }
