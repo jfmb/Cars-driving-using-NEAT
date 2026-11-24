@@ -11,9 +11,33 @@ namespace NeatSimulation.Vehicles
     {
         private AdaptiveVehicleEvaluationRun _run;
 
-        public override float Fitness => _run?.Fitness ?? 0f;
-        public override bool IsComplete => _run?.IsComplete ?? false;
+        public override float Fitness
+        {
+            get
+            {
+                ReconcileCollision();
+                return _run?.Fitness ?? 0f;
+            }
+        }
+
+        public override bool IsComplete
+        {
+            get
+            {
+                ReconcileCollision();
+                return _run?.IsComplete ?? false;
+            }
+        }
+
         protected override bool HasRun => _run != null;
+
+        private void ReconcileCollision()
+        {
+            if (_run != null && VehicleHasCollided)
+            {
+                _run.Tick(0f, true);
+            }
+        }
 
         protected override void Awake()
         {

@@ -14,6 +14,7 @@ namespace NeatSimulation.Vehicles
         public abstract float Fitness { get; }
         public abstract bool IsComplete { get; }
         protected abstract bool HasRun { get; }
+        protected bool VehicleHasCollided => _vehicleController.HasCollided;
 
         protected virtual void Awake()
         {

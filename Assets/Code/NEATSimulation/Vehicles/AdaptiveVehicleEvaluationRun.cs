@@ -61,7 +61,7 @@ namespace NeatSimulation.Vehicles
 
         public void Tick(float deltaTime, bool vehicleCollided)
         {
-            if (_isComplete)
+            if (_isComplete && !_isCleanCompletion)
             {
                 return;
             }
@@ -75,7 +75,13 @@ namespace NeatSimulation.Vehicles
 
             if (vehicleCollided)
             {
+                _isCleanCompletion = false;
                 _isComplete = true;
+                return;
+            }
+
+            if (_isComplete)
+            {
                 return;
             }
 
