@@ -48,7 +48,11 @@ namespace NeatSimulation.Integration
         private bool _generationComplete;
         private bool _finished;
 
-        protected int InputCount => numInputs;
+        protected void SetNetworkShape(int inputCount, int outputCount)
+        {
+            numInputs = inputCount;
+            numOutputs = outputCount;
+        }
 
         protected virtual int RequiredInputCount => 0;
         protected virtual int RequiredOutputCount => 1;

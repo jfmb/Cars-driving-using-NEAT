@@ -43,7 +43,7 @@ Preserve the current legacy implementation and the user's pre-existing working-t
 > "Do not launch Unity or perform runtime tests. I will handle Unity execution and manual testing."
 
 ## Tasks
-- T1 [S1] Add shared control and vehicle/evaluation contracts; extract shared adapter/session logic while preserving legacy serialized settings and scoring. Route: parent inline (sequential shared-contract work). Commit: pending.
+- T1 [S1] Add shared control and vehicle/evaluation contracts; extract shared adapter/session logic while preserving legacy serialized settings and scoring. Route: parent inline (sequential shared-contract work). Commit: `0fb5cfd`.
 - T2 [S2] Implement the independent two-output adaptive adapter and adaptive speed controller with validation and finite-output safeguards. Route: parent inline after T1. Commit: pending.
 - T3 [S3,S4] Add adaptive ordered-checkpoint completion/fitness, focused pure-logic tests if assembly-compatible, adaptive prefab asset, source/config checks, and final diff review. Route: parent inline after T2. Commit: pending.
 
@@ -136,3 +136,9 @@ Keep the report concise. Include:
 - Required Inspector assignments or manual setup.
 - Tests and checks performed.
 - Any unresolved issues.
+
+### L2 — Shared contracts completed
+T1 added `VehicleControlOutput`, shared controller/evaluation bases, and per-component adapter session/configuration while retaining the legacy adapter's one-output setting, fixed-speed movement, and exact `checkpoints * 100 + elapsed` fitness formula. Source-level checks passed for these contracts and found no stale `EvaluateSteering` call sites; `git diff --check` passed. Work-unit commit: `0fb5cfd`. No Unity Editor, Unity CLI, or runtime tests were run.
+
+### L3 — Adaptive control implemented
+T2 added the independent two-output adapter (five inputs, two outputs, per-instance inherited NEAT session) and separate adaptive vehicle controller. The adapter maps output 0 to steering and output 1 to normalized target speed, neutralizing non-finite outputs; the controller validates positive finite bounds/rates and approaches the mapped target with distinct acceleration/deceleration rates in `FixedUpdate`. Source/configuration assertions passed for these behaviors. No Unity or runtime tests were run.
