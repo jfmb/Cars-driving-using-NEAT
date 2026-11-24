@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace NeatSimulation.Vehicles
 {
@@ -8,13 +9,51 @@ namespace NeatSimulation.Vehicles
     /// </summary>
     public abstract class VehicleEvaluationBase : MonoBehaviour
     {
+        private VehicleControllerBase _vehicleController;
+
         public abstract float Fitness { get; }
         public abstract bool IsComplete { get; }
+        protected abstract bool HasRun { get; }
+
+        protected virtual void Awake()
+        {
+            _vehicleController = GetComponent<VehicleControllerBase>();
+            Assert.IsNotNull(_vehicleController, "vehicleController must be != null");
+        }
+
+        protected virtual void FixedUpdate()
+        {
+            if (!HasRun || IsComplete)
+            {
+                return;
+            }
+
+            AdvanceRun(Time.fixedDeltaTime, _vehicleController.HasCollided);
+            if (IsComplete)
+            {
+                _vehicleController.StopAfterEvaluation();
+            }
+        }
 
         public abstract void BeginEvaluation(
             IReadOnlyList<VehicleCheckpoint> checkpoints,
             float timeLimitSeconds);
 
-        public abstract void RegisterCheckpoint(VehicleCheckpoint checkpoint);
+        public void RegisterCheckpoint(VehicleCheckpoint checkpoint)
+        {
+            TryReachCheckpoint(checkpoint);
+            if (IsComplete)
+            {
+                _vehicleController.StopAfterEvaluation();
+            }
+        }
+
+        protected void ResetVehicleCollisionState()
+        {
+            _vehicleController.ResetCollisionState();
+        }
+
+        protected abstract void AdvanceRun(float deltaTime, bool vehicleCollided);
+        protected abstract void TryReachCheckpoint(VehicleCheckpoint checkpoint);
     }
 }
