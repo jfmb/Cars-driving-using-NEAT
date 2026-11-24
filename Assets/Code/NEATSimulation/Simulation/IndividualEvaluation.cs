@@ -10,7 +10,7 @@ namespace NeatSimulation.Simulation
     /// </summary>
     public sealed class IndividualEvaluation
     {
-        public IndividualEvaluation(int individualId, GameObject vehicleInstance, VehicleEvaluation evaluation)
+        public IndividualEvaluation(int individualId, GameObject vehicleInstance, VehicleEvaluationBase evaluation)
         {
             IndividualId = individualId;
             VehicleInstance = vehicleInstance;
@@ -21,7 +21,7 @@ namespace NeatSimulation.Simulation
 
         public GameObject VehicleInstance { get; }
 
-        public VehicleEvaluation Evaluation { get; }
+        public VehicleEvaluationBase Evaluation { get; }
 
         public bool HasReportedFitness { get; set; }
     }

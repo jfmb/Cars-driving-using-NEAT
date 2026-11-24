@@ -137,9 +137,9 @@ namespace NeatSimulation.Simulation
                 vehicleInstance.SetActive(true);
             }
 
-            var vehicleController = vehicleInstance.GetComponent<VehicleController>();
+            var vehicleController = vehicleInstance.GetComponent<VehicleControllerBase>();
             Assert.IsNotNull(vehicleController,
-                $"{vehicleInstance.name} is missing its {nameof(VehicleController)} component");
+                $"{vehicleInstance.name} is missing its {nameof(VehicleControllerBase)} component");
 
             // Only a connected policy makes the vehicle drive; with no adapter the controller stays
             // uninitialized and does not invent steering (integration contract, SimulationIntegration.md).
@@ -148,12 +148,7 @@ namespace NeatSimulation.Simulation
                 vehicleController.Initialize(individualController);
             }
 
-            var evaluation = vehicleInstance.GetComponent<VehicleEvaluation>();
-            if (evaluation == null)
-            {
-                evaluation = vehicleInstance.AddComponent<VehicleEvaluation>();
-            }
-
+            var evaluation = vehicleController.GetOrAddEvaluation();
             evaluation.BeginEvaluation(checkpoints, evaluationTimeLimitSeconds);
             _individualEvaluations.Add(new IndividualEvaluation(individualId, vehicleInstance, evaluation));
         }

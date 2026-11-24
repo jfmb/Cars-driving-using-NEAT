@@ -9,26 +9,26 @@ namespace NeatSimulation.Vehicles
     /// outcome. The coordinator starts each evaluation and reports its fitness to the NEAT adapter.
     /// </summary>
     [RequireComponent(typeof(VehicleController))]
-    public class VehicleEvaluation : MonoBehaviour
+    public class VehicleEvaluation : VehicleEvaluationBase
     {
         private VehicleEvaluationRun _run;
-        private VehicleController _vehicleController;
+        private VehicleControllerBase _vehicleController;
 
         /// <summary>
         /// Fitness from reached checkpoints and survival time; frozen when the evaluation completes.
         /// 0 before the first BeginEvaluation.
         /// </summary>
-        public float Fitness => _run?.Fitness ?? 0f;
+        public override float Fitness => _run?.Fitness ?? 0f;
 
         /// <summary>
         /// True once the current evaluation ended by collision or time limit; false before
         /// BeginEvaluation is called.
         /// </summary>
-        public bool IsComplete => _run?.IsComplete ?? false;
+        public override bool IsComplete => _run?.IsComplete ?? false;
 
         private void Awake()
         {
-            _vehicleController = GetComponent<VehicleController>();
+            _vehicleController = GetComponent<VehicleControllerBase>();
             Assert.IsNotNull(_vehicleController, "vehicleController must be != null");
         }
 
@@ -50,13 +50,13 @@ namespace NeatSimulation.Vehicles
         /// Starts a fresh checkpoint-based evaluation with the given time limit and resets the
         /// vehicle's collision state.
         /// </summary>
-        public void BeginEvaluation(IReadOnlyList<VehicleCheckpoint> checkpoints, float timeLimitSeconds)
+        public override void BeginEvaluation(IReadOnlyList<VehicleCheckpoint> checkpoints, float timeLimitSeconds)
         {
             _vehicleController.ResetCollisionState();
             _run = new VehicleEvaluationRun(checkpoints, timeLimitSeconds);
         }
 
-        public void RegisterCheckpoint(VehicleCheckpoint checkpoint)
+        public override void RegisterCheckpoint(VehicleCheckpoint checkpoint)
         {
             _run?.TryReachCheckpoint(checkpoint);
         }

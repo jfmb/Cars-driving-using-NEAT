@@ -20,7 +20,7 @@ namespace NeatSimulation.Vehicles
 
         private void OnTriggerEnter(Collider other)
         {
-            var evaluation = other.GetComponentInParent<VehicleEvaluation>();
+            var evaluation = other.GetComponentInParent<VehicleEvaluationBase>();
             if (evaluation == null)
             {
                 return;
