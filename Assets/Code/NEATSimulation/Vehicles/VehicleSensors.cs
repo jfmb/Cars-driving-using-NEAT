@@ -20,6 +20,7 @@ namespace NeatSimulation.Vehicles
         [SerializeField] private float sensorDistance = 10f;
         [Tooltip("Layers the sensor rays detect. Exclude the vehicle's own layer.")]
         [SerializeField] private LayerMask sensorMask;
+        [SerializeField] private bool showSensors = true;
 
         private readonly List<float> _readings = new List<float>();
         private Vector3[] _localDirections;
@@ -45,27 +46,41 @@ namespace NeatSimulation.Vehicles
                 _readings.Add(1f);
             }
         }
-
         /// <summary>
         /// Casts every sensor ray and refreshes the cached readings in place.
         /// </summary>
         public void Sample()
         {
             var origin = _vehicleCollider.bounds.center;
+
             for (var i = 0; i < _localDirections.Length; i++)
             {
                 var direction = transform.TransformDirection(_localDirections[i]);
-                if (Physics.Raycast(origin, direction, out var hit, sensorDistance, sensorMask, QueryTriggerInteraction.Collide))
+                var hitDetected = Physics.Raycast(
+                    origin,
+                    direction,
+                    out var hit,
+                    sensorDistance,
+                    sensorMask,
+                    QueryTriggerInteraction.Collide);
+
+                if (showSensors)
                 {
-                    _readings[i] = hit.distance / sensorDistance;
+                    var endPoint = hitDetected
+                        ? hit.point
+                        : origin + direction * sensorDistance;
+
+                    Debug.DrawLine(
+                        origin,
+                        endPoint,
+                        hitDetected ? Color.red : Color.green);
                 }
-                else
-                {
-                    _readings[i] = 1f;
-                }
+
+                _readings[i] = hitDetected
+                    ? hit.distance / sensorDistance
+                    : 1f;
             }
         }
-
         private Vector3[] BuildLocalDirections()
         {
             var directions = new Vector3[sensorCount];

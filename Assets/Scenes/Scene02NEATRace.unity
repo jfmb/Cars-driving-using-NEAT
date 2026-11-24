@@ -455,6 +455,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1365bb3e2ea367545841cd93130e3b14, type: 3}
   m_PrefabInstance: {fileID: 15851049}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &17272215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 17272216}
+  m_Layer: 0
+  m_Name: GreenCars Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &17272216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17272215}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1912278734}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &41262605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3963,7 +3994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e2c1c1f986c4b8ca3d01f37a6b4e59d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Integration.NeatSimulationAdapter
-  maximumGenerations: 400
+  maximumGenerations: 1000
   numInputs: 5
   numOutputs: 1
   useRandomSeed: 0
@@ -8799,6 +8830,81 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8, y: 1.5, z: 8.008523}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &774500310
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1912278734}
+    m_Modifications:
+    - target: {fileID: 1125739470587017240, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: maximumSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125739470587017240, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: minimumSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8241679924772006113, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: m_Name
+      value: AdaptiveSpeedVehicle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731218078981993051, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -44.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731218078981993051, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.05000035
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731218078981993051, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.6973767
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731218078981993051, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731218078981993051, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731218078981993051, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731218078981993051, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731218078981993051, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731218078981993051, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731218078981993051, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+--- !u!4 &774500311 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8731218078981993051, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+  m_PrefabInstance: {fileID: 774500310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &774500312 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8241679924772006113, guid: ab7720f1f8ca492db2ca26b52b121d14, type: 3}
+  m_PrefabInstance: {fileID: 774500310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &776080076
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13815,6 +13921,72 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8, y: 1.5, z: 4.4968967}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1159299440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1159299442}
+  - component: {fileID: 1159299441}
+  m_Layer: 0
+  m_Name: GreenSimulatorAdapter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1159299441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159299440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae88da2929394378a94f2ba3f7cb5f91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Integration.AdaptiveNeatSimulationAdapter
+  maximumGenerations: 100
+  numInputs: 5
+  numOutputs: 2
+  useRandomSeed: 0
+  randomSeed: 0
+  mutationProbability: 0.8
+  crossoverProbability: 0.75
+  addConnectionProbability: 0.03
+  addNodeProbability: 0.03
+  enableDisableConnectionProbability: 0.01
+  weightMutationRate: 0.5
+  weightMutationAmount: 0.5
+  weightReplacementProbability: 0.03
+  maxWeight: 6
+  elitismCount: 1
+  compatibilityThreshold: 3
+  excessCoefficient: 1
+  disjointCoefficient: 1
+  weightCoefficient: 0.2
+  speciesAgeLimit: 15
+  speciesDecay: 0.02
+  activationFunction: 0
+--- !u!4 &1159299442
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159299440}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -42.85744, y: 0.05, z: 6.12319}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1161073067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14258,9 +14430,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 132f025a73c7b0f449ffbc6de7628711, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1178104364}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 132f025a73c7b0f449ffbc6de7628711, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1178104367}
   m_SourcePrefab: {fileID: 100100000, guid: 132f025a73c7b0f449ffbc6de7628711, type: 3}
 --- !u!4 &1178104360 stripped
 Transform:
@@ -14344,7 +14513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea45b619db732fe4398497d20e06fcd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Vehicles.VehicleController
-  speed: 50
+  speed: 30
   steeringDegreesPerSecond: 180
 --- !u!114 &1178104366
 MonoBehaviour:
@@ -14364,29 +14533,7 @@ MonoBehaviour:
   sensorMask:
     serializedVersion: 2
     m_Bits: 128
---- !u!136 &1178104367
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178104361}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 3.135711
-  m_Height: 12.784819
-  m_Direction: 2
-  m_Center: {x: -0.05544424, y: 3.0030286, z: -0.3764528}
+  showSensors: 1
 --- !u!1 &1187383616
 GameObject:
   m_ObjectHideFlags: 0
@@ -20082,6 +20229,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1365bb3e2ea367545841cd93130e3b14, type: 3}
   m_PrefabInstance: {fileID: 1610935513}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1613863192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1613863193}
+  m_Layer: 0
+  m_Name: RedCars Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1613863193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613863192}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1912278734}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1622953836
 GameObject:
   m_ObjectHideFlags: 0
@@ -20639,6 +20817,68 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8.36, y: 0.2, z: 6.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1658371264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1658371266}
+  - component: {fileID: 1658371265}
+  m_Layer: 0
+  m_Name: NeatSimulationCoordinator (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1658371265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658371264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b595351da3fd6b40a88dd664baf09f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Simulation.NeatSimulationCoordinator
+  gameStartsEventId: {fileID: 11400000, guid: 1d960c1c0e6f60b4a8398459ad5c00e0, type: 2}
+  carsContainer: {fileID: 17272216}
+  vehiclePrefab: {fileID: 774500312}
+  raceStartPoint: {fileID: 1174179424}
+  checkpoints:
+  - {fileID: 1176804909}
+  - {fileID: 1622953838}
+  - {fileID: 1837938942}
+  - {fileID: 846484946}
+  - {fileID: 801167813}
+  - {fileID: 981919608}
+  - {fileID: 1791405120}
+  - {fileID: 1122760781}
+  - {fileID: 1659165380}
+  spawnSpacingMeters: 0.1
+  populationSize: 20
+  evaluationTimeLimitSeconds: 60
+  neatSimulationAdapter: {fileID: 1159299441}
+--- !u!4 &1658371266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658371264}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1659165378
 GameObject:
   m_ObjectHideFlags: 0
@@ -20666,7 +20906,7 @@ Transform:
   m_GameObject: {fileID: 1659165378}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.02559549, z: -0, w: 0.9996724}
-  m_LocalPosition: {x: 37.1, y: -0.000000048428774, z: 68.3}
+  m_LocalPosition: {x: 31.3, y: -0.000000048428774, z: 65.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20903,7 +21143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NeatSimulation.Simulation.NeatSimulationCoordinator
   gameStartsEventId: {fileID: 11400000, guid: 1d960c1c0e6f60b4a8398459ad5c00e0, type: 2}
-  carsContainer: {fileID: 1912278734}
+  carsContainer: {fileID: 1613863193}
   vehiclePrefab: {fileID: 1178104361}
   raceStartPoint: {fileID: 1174179424}
   checkpoints:
@@ -20917,7 +21157,7 @@ MonoBehaviour:
   - {fileID: 1122760781}
   - {fileID: 1659165380}
   spawnSpacingMeters: 0.1
-  populationSize: 50
+  populationSize: 20
   evaluationTimeLimitSeconds: 60
   neatSimulationAdapter: {fileID: 309350666}
 --- !u!4 &1703867202
@@ -22962,7 +23202,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 774500311}
   - {fileID: 1178104360}
+  - {fileID: 1613863193}
+  - {fileID: 17272216}
   m_Father: {fileID: 580594438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1919257746
@@ -25036,3 +25279,5 @@ SceneRoots:
   - {fileID: 1703867202}
   - {fileID: 309350667}
   - {fileID: 1641938150}
+  - {fileID: 1658371266}
+  - {fileID: 1159299442}
