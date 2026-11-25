@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using NeatSimulation.Integration;
 using NeatSimulation.Vehicles;
 using Services.EventQueue;
@@ -22,7 +21,8 @@ namespace NeatSimulation.Simulation
         [SerializeField] private Transform carsContainer;
         [SerializeField] private GameObject vehiclePrefab;
         [SerializeField] private Transform raceStartPoint;
-        [SerializeField] private TrackProgressPath trackProgressPath = new TrackProgressPath();
+        [Tooltip("Ordered checkpoints for this circuit; each vehicle must reach them in sequence.")]
+        [SerializeField] private List<VehicleCheckpoint> checkpoints = new List<VehicleCheckpoint>();
         [SerializeField, Min(0.1f)] private float spawnSpacingMeters = 3.5f;
         [SerializeField, Min(2)] private int populationSize = 4;
         [SerializeField, Min(1f)] private float evaluationTimeLimitSeconds = 60f;
@@ -41,7 +41,12 @@ namespace NeatSimulation.Simulation
             Assert.IsNotNull(carsContainer, "carsContainer must be != null");
             Assert.IsNotNull(vehiclePrefab, "vehiclePrefab must be != null");
             Assert.IsNotNull(raceStartPoint, "raceStartPoint must be != null");
-            Assert.IsNotNull(trackProgressPath, "trackProgressPath must be != null");
+            Assert.IsNotNull(checkpoints, "checkpoints must be != null");
+            for (var i = 0; i < checkpoints.Count; i++)
+            {
+                Assert.IsNotNull(checkpoints[i], $"checkpoints[{i}] must be != null");
+            }
+
             Assert.IsTrue(spawnSpacingMeters > 0f, "spawnSpacingMeters must be > 0");
 
             if (neatSimulationAdapter != null)
@@ -87,7 +92,6 @@ namespace NeatSimulation.Simulation
 
         private void SpawnPopulation(IReadOnlyList<INeatVehicleController> individualControllers)
         {
-            var startDistance = trackProgressPath.GetDistanceAlongPath(raceStartPoint.position);
             if (vehiclePrefab.scene.IsValid())
             {
                 vehiclePrefab.SetActive(false);
@@ -95,12 +99,12 @@ namespace NeatSimulation.Simulation
 
             for (var individualId = 0; individualId < populationSize; individualId++)
             {
-                var spawnDistance = startDistance - individualId * spawnSpacingMeters;
-                var spawnPose = trackProgressPath.GetPoseAtDistance(spawnDistance);
+                var spawnPosition = raceStartPoint.position +
+                                    raceStartPoint.forward * (individualId * spawnSpacingMeters);
                 var individualController = individualControllers != null
                     ? individualControllers[individualId]
                     : null;
-                CreateIndividualEvaluation(individualId, individualController, spawnPose);
+                CreateIndividualEvaluation(individualId, individualController, spawnPosition);
             }
         }
 
@@ -125,18 +129,17 @@ namespace NeatSimulation.Simulation
         private void CreateIndividualEvaluation(
             int individualId,
             INeatVehicleController individualController,
-            TrackPose spawnPose)
+            Vector3 spawnPosition)
         {
-            var rotation = Quaternion.LookRotation(-spawnPose.Forward, raceStartPoint.up);
-            var vehicleInstance = Instantiate(vehiclePrefab, spawnPose.Position, rotation, carsContainer);
+            var vehicleInstance = Instantiate(vehiclePrefab, spawnPosition, raceStartPoint.rotation, carsContainer);
             if (!vehicleInstance.activeSelf)
             {
                 vehicleInstance.SetActive(true);
             }
 
-            var vehicleController = vehicleInstance.GetComponent<VehicleController>();
+            var vehicleController = vehicleInstance.GetComponent<VehicleControllerBase>();
             Assert.IsNotNull(vehicleController,
-                $"{vehicleInstance.name} is missing its {nameof(VehicleController)} component");
+                $"{vehicleInstance.name} is missing its {nameof(VehicleControllerBase)} component");
 
             // Only a connected policy makes the vehicle drive; with no adapter the controller stays
             // uninitialized and does not invent steering (integration contract, SimulationIntegration.md).
@@ -145,13 +148,8 @@ namespace NeatSimulation.Simulation
                 vehicleController.Initialize(individualController);
             }
 
-            var evaluation = vehicleInstance.GetComponent<VehicleEvaluation>();
-            if (evaluation == null)
-            {
-                evaluation = vehicleInstance.AddComponent<VehicleEvaluation>();
-            }
-
-            evaluation.BeginEvaluation(trackProgressPath, evaluationTimeLimitSeconds);
+            var evaluation = vehicleController.GetOrAddEvaluation();
+            evaluation.BeginEvaluation(checkpoints, evaluationTimeLimitSeconds);
             _individualEvaluations.Add(new IndividualEvaluation(individualId, vehicleInstance, evaluation));
         }
 

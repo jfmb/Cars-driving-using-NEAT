@@ -10,7 +10,7 @@ namespace NeatSimulation.Vehicles
     /// fabricated to compensate for the missing NEAT Core.
     /// </summary>
     [RequireComponent(typeof(Rigidbody), typeof(VehicleSensors))]
-    public class VehicleController : MonoBehaviour
+    public class VehicleController : VehicleControllerBase
     {
         private const string TrackLayerName = "Track";
         private const float MinSteering = -1f;
@@ -26,12 +26,6 @@ namespace NeatSimulation.Vehicles
         private int _trackLayer;
         private Rigidbody _rigidbody;
         private float _steeringRadiansPerSecond;
-
-        /// <summary>
-        /// True from the vehicle's first physics collision until the state is reset for the next
-        /// evaluation.
-        /// </summary>
-        public bool HasCollided { get; private set; }
 
         private void Awake()
         {
@@ -54,7 +48,8 @@ namespace NeatSimulation.Vehicles
             }
 
             _sensors.Sample();
-            var steering = Mathf.Clamp(_controller.EvaluateSteering(_sensors.Readings), MinSteering, MaxSteering);
+            var control = _controller.EvaluateControl(_sensors.Readings);
+            var steering = Mathf.Clamp(control.Steering, MinSteering, MaxSteering);
             // The raceCarRed model's nose points along local -Z.
             _rigidbody.linearVelocity = -transform.forward * speed;
             _rigidbody.angularVelocity = transform.up * (steering * _steeringRadiansPerSecond);
@@ -67,24 +62,24 @@ namespace NeatSimulation.Vehicles
                 return;
             }
 
-            RegisterCollision();
+            RegisterCollision(other.collider);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            // Debug.LogWarning(
-            //     $"[{name}] Trigger entered: {other.name}, " +
-            //     $"Layer: {LayerMask.LayerToName(other.gameObject.layer)}",
-            //     other);
-            RegisterCollision();
+            if (other.GetComponent<VehicleCheckpoint>() != null)
+            {
+                return;
+            }
+
+            RegisterCollision(other);
         }
 
-        private void RegisterCollision()
+        private void RegisterCollision(Collider other)
         {
-            // Debug.LogWarning(
-            //     $"[{name}] Collision detected. HasCollided={HasCollided}",
-            //     this);
-            //
+            Debug.LogWarning(
+                $"[{name}] Collision with {other.name}, " +
+                $"Layer: {LayerMask.LayerToName(other.gameObject.layer)}");
             HasCollided = true;
             StopDriving();
         }
@@ -100,7 +95,7 @@ namespace NeatSimulation.Vehicles
         /// Connects the optional NEAT policy for this vehicle. A null controller leaves the vehicle
         /// stationary.
         /// </summary>
-        public void Initialize(INeatVehicleController controller)
+        public override void Initialize(INeatVehicleController controller)
         {
             _controller = controller;
         }
@@ -108,14 +103,25 @@ namespace NeatSimulation.Vehicles
         /// <summary>
         /// Clears the collision flag before starting a new evaluation.
         /// </summary>
-        public void ResetCollisionState()
+        public override void ResetCollisionState()
         {
             HasCollided = false;
         }
 
-        public void StopAfterEvaluation()
+        public override void StopAfterEvaluation()
         {
             StopDriving();
+        }
+
+        public override VehicleEvaluationBase GetOrAddEvaluation()
+        {
+            var evaluation = GetComponent<VehicleEvaluation>();
+            if (evaluation == null)
+            {
+                evaluation = gameObject.AddComponent<VehicleEvaluation>();
+            }
+
+            return evaluation;
         }
     }
 }

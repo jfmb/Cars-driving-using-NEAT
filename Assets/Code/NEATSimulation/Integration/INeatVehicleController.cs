@@ -3,10 +3,10 @@ using System.Collections.Generic;
 namespace NeatSimulation.Integration
 {
     /// <summary>
-    /// Adapts one NEAT individual to the vehicle's normalized steering output.
+    /// Adapts one NEAT individual to normalized vehicle controls.
     /// </summary>
     public interface INeatVehicleController
     {
-        float EvaluateSteering(IReadOnlyList<float> sensorReadings);
+        VehicleControlOutput EvaluateControl(IReadOnlyList<float> sensorReadings);
     }
 }

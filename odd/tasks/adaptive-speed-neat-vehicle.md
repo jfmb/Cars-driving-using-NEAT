@@ -1,0 +1,153 @@
+# Adaptive-speed NEAT vehicle population
+Implements the approved Junie plan in `.junie/plans/adaptive-speed-neat-vehicle.md`.
+Preserve the current legacy implementation and the user's pre-existing working-tree changes.
+
+## Specs
+
+### S1 — Preserve legacy behavior and shared plumbing
+> "Preserve the existing red vehicle model and its behavior, configuration, adapter, population and fitness semantics."
+>
+> "Prefer additive changes and independent implementations over modifying existing components to support multiple modes."
+>
+> "Keep `NeatSimulationAdapter` working with its existing serialized settings and legacy behavior."
+>
+> "Keep `VehicleController` behavior unchanged for the legacy model."
+>
+> "Keep the two populations and their evolution state completely independent."
+
+### S2 — Adaptive controller and adapter
+> "Implement `AdaptiveNeatSimulationAdapter` as an independent implementation using the shared contracts."
+>
+> "Implement the adaptive behavior in a separate `AdaptiveSpeedVehicleController`."
+>
+> "Correct mapping of the second network output to a configurable target speed."
+>
+> "Progressive acceleration and deceleration in FixedUpdate."
+>
+> "Validation of speed limits and acceleration parameters."
+>
+> "Handling non-finite network outputs safely."
+
+### S3 — Adaptive evaluation, fitness, and prefab
+> "Ensuring clean circuit completion always ranks above incomplete or failed runs."
+>
+> "Ensuring faster clean completions receive higher fitness."
+>
+> "Preserving the existing legacy fitness calculation exactly."
+>
+> "Do not modify scene or prefab assets unnecessarily. The existing saved legacy scene configuration must remain valid. Create the adaptive prefab and provide the necessary Inspector configuration without attaching multiple active vehicle controllers to the same prefab."
+
+### S4 — Verification boundary
+> "Run focused tests and source/configuration checks where practical."
+>
+> "Do not launch Unity or perform runtime tests. I will handle Unity execution and manual testing."
+
+## Tasks
+- T1 [S1] Add shared control and vehicle/evaluation contracts; extract shared adapter/session logic while preserving legacy serialized settings and scoring. Route: parent inline (sequential shared-contract work). Commit: `0fb5cfd`.
+- T2 [S2] Implement the independent two-output adaptive adapter and adaptive speed controller with validation and finite-output safeguards. Route: parent inline after T1. Commit: `0868032`.
+- T3 [S3,S4] Add adaptive ordered-checkpoint completion/fitness, focused pure-logic tests if assembly-compatible, adaptive prefab asset, source/config checks, and final diff review. Route: parent inline after T2. Commits: `3e64e52`, `7da37e1` (collision-at-finish correction).
+
+## Log
+
+### L1 — Original request
+Implement the approved Junie plan for adding an independent adaptive-speed NEAT vehicle population.
+
+Read and follow the implementation plan in `.junie/plans/adaptive-speed-neat-vehicle.md`. Use it as the source of truth.
+
+## Critical architectural requirements
+
+- Preserve the existing red vehicle model and its behavior, configuration, adapter, population and fitness semantics.
+- Prefer additive changes and independent implementations over modifying existing components to support multiple modes.
+- Keep `NeatSimulationAdapter` working with its existing serialized settings and legacy behavior.
+- Implement `AdaptiveNeatSimulationAdapter` as an independent implementation using the shared contracts.
+- Keep `VehicleController` behavior unchanged for the legacy model.
+- Implement the adaptive behavior in a separate `AdaptiveSpeedVehicleController`.
+- Reuse shared infrastructure such as VehicleSensors, checkpoints and the NEAT core.
+- Keep the two populations and their evolution state completely independent.
+- Avoid unnecessary abstractions, broad refactoring and unrelated improvements.
+
+## Execution strategy and model selection
+
+Before implementation:
+
+1. Read the plan and inspect only the relevant files and their immediate dependencies.
+2. Break the work into the smallest sensible implementation tasks.
+3. Assign each task to the most suitable available model, prioritizing the lowest-cost model capable of completing it reliably.
+4. Reserve more expensive models for architectural decisions or genuinely difficult implementation tasks.
+5. Avoid unnecessary parallel agents, repeated reviews and broad repository exploration.
+
+Do not repeatedly reassess the approved architecture or create additional planning iterations. Resolve ordinary implementation details pragmatically.
+
+## Unity CLI: mandatory token-saving preparation
+
+Before ANY interaction with Unity CLI, inspect its available configuration and determine how to minimize token consumption.
+
+This must happen before the first Unity CLI call.
+
+Configure the most concise response/output options supported, including:
+
+- Reduced verbosity and short response formats.
+- Suppression of unnecessary progress and informational messages.
+- Filtering or limiting output to relevant errors and warnings.
+- Avoiding large dumps of scene hierarchies, assets, project state or unrelated information.
+
+Verify that the configuration is effective before proceeding with Unity CLI.
+
+If a particular setting is unsupported, use the most efficient available alternative. Do not repeatedly request large outputs and summarize them afterwards.
+
+Prefer source inspection and focused automated checks when Unity CLI is unnecessary.
+
+## Implementation requirements
+
+Follow the three implementation stages in the Junie plan:
+
+1. Introduce shared contracts while preserving legacy behavior.
+2. Implement the independent adaptive adapter and vehicle controller.
+3. Implement adaptive evaluation, fitness and Inspector configuration.
+
+Pay particular attention to:
+
+- Correct mapping of the second network output to a configurable target speed.
+- Progressive acceleration and deceleration in FixedUpdate.
+- Validation of speed limits and acceleration parameters.
+- Handling non-finite network outputs safely.
+- Ensuring clean circuit completion always ranks above incomplete or failed runs.
+- Ensuring faster clean completions receive higher fitness.
+- Preserving the existing legacy fitness calculation exactly.
+
+Do not modify scene or prefab assets unnecessarily. The existing saved legacy scene configuration must remain valid. Create the adaptive prefab and provide the necessary Inspector configuration without attaching multiple active vehicle controllers to the same prefab.
+
+## Verification
+
+- Run focused tests and source/configuration checks where practical.
+- Check that the legacy adapter, controller and evaluation retain their existing behavior.
+- Check that both adapters configure the correct network input/output counts.
+- Check that the two populations maintain independent evolution state.
+- Review the final diff for unintended changes.
+
+Do not launch Unity or perform runtime tests. I will handle Unity execution and manual testing.
+
+## Final report
+
+Keep the report concise. Include:
+
+- Implemented changes.
+- New and modified files.
+- Required Inspector assignments or manual setup.
+- Tests and checks performed.
+- Any unresolved issues.
+
+### L2 — Shared contracts completed
+T1 added `VehicleControlOutput`, shared controller/evaluation bases, and per-component adapter session/configuration while retaining the legacy adapter's one-output setting, fixed-speed movement, and exact `checkpoints * 100 + elapsed` fitness formula. Source-level checks passed for these contracts and found no stale `EvaluateSteering` call sites; `git diff --check` passed. Work-unit commit: `0fb5cfd`. No Unity Editor, Unity CLI, or runtime tests were run.
+
+### L3 — Adaptive control implemented
+T2 added the independent two-output adapter (five inputs, two outputs, per-instance inherited NEAT session) and separate adaptive vehicle controller. The adapter maps output 0 to steering and output 1 to normalized target speed, neutralizing non-finite outputs; the controller validates positive finite bounds/rates and approaches the mapped target with distinct acceleration/deceleration rates in `FixedUpdate`. Source/configuration assertions passed for these behaviors. No Unity or runtime tests were run. Work-unit commit: `0868032`.
+
+### L4 — Adaptive fitness and prefab verified structurally
+The focused verifier noted that repeated checkpoint references would be silently unreachable with a visited-checkpoint set. Adaptive evaluation now rejects null or duplicate route entries at construction, making malformed configuration fail fast. Source/config checks passed for ordered final-checkpoint completion, collision/timeout remaining non-clean, the bounded unfinished score being below every clean score, faster clean runs scoring higher, unchanged legacy fitness, correct script GUID links, and an adaptive prefab with one controller/evaluator, five sensors, Rigidbody, and collider. The score-bound check exercised route sizes 1–100 and several time limits. No .NET/C# compiler or existing vehicle test assembly was available; no Unity or runtime tests were run. The saved legacy scene and pre-existing user edits were not changed by this task. T3 work-unit commit: `3e64e52`.
+
+### L5 — Collision-at-finish correction
+The independent verifier found that a same-step collision after the final checkpoint could be masked by the run's completed guard, preserving clean fitness. A focused source regression probe reproduced this ordering (RED). Adaptive evaluation now reconciles collision state when completion/fitness is read, and the adaptive run lets a later collision override clean completion; the legacy run remains unchanged. The source regression probe passed (GREEN). Unity and runtime tests remain intentionally unrun. Correction commit: `7da37e1`.
+
+### L6 — Native review environment blocker
+Receipt-driven development is enabled. Assessment marked the correction candidate high risk (item 3) and review due. Native inspect was blocked before START because the Git common directory is on `/mnt/d`, where candidate-view parent permissions do not honor POSIX `chmod`; no lineage or review authority was created. The provider diagnostic names the supported next step: move the repository's Git common directory to a POSIX-metadata filesystem or enable metadata support. No retry or environment change was performed.
